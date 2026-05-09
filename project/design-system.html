@@ -1,0 +1,2167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Forge — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+<style>
+  /* ============================================================
+     FORGE — Design tokens
+     ============================================================ */
+  :root {
+    /* Brand palette (provided) */
+    --jet-black:        #202a25;
+    --violet-twilight:  #5f4bb6;
+    --wisteria-blue:    #86a5d9;
+    --neon-ice:         #26f0f1;
+    --tea-green:        #c4ebc8;
+
+    /* Neutrals — derived from hsl(150, 14%, x%) family of jet-black */
+    --ink-1000: #11161300;
+    --ink-950:  #161d19;   /* page background */
+    --ink-900:  #202a25;   /* surface-1 (jet-black) */
+    --ink-850:  #283330;   /* surface-2 / raised */
+    --ink-800:  #313d38;   /* surface-3 / hover */
+    --ink-700:  #3d4d46;   /* border-strong */
+    --ink-600:  #4f6258;   /* divider */
+    --ink-500:  #6b8076;   /* text-tertiary */
+    --ink-400:  #8aa092;   /* text-secondary-soft */
+    --ink-300:  #a8baad;   /* text-secondary */
+    --ink-200:  #c8d4cb;
+    --ink-100:  #e3eae5;   /* text-primary-soft */
+    --ink-50:   #f1f4f2;   /* text-primary */
+
+    /* Semantic surfaces */
+    --bg:               var(--ink-950);
+    --surface-1:        var(--ink-900);
+    --surface-2:        var(--ink-850);
+    --surface-3:        var(--ink-800);
+    --surface-sunken:   #131915;
+    --border:           rgba(255,255,255,0.07);
+    --border-strong:    rgba(255,255,255,0.14);
+    --divider:          rgba(255,255,255,0.05);
+
+    /* Text */
+    --text-primary:     var(--ink-50);
+    --text-secondary:   var(--ink-300);
+    --text-tertiary:    var(--ink-500);
+    --text-disabled:    #4b5b53;
+
+    /* Brand semantic */
+    --primary:          var(--violet-twilight);
+    --primary-hover:    #6f5cc6;
+    --primary-press:    #4f3da6;
+    --primary-soft:     rgba(95, 75, 182, 0.16);
+    --primary-soft-strong: rgba(95, 75, 182, 0.30);
+    --primary-fg:       #ffffff;
+
+    --info:             var(--wisteria-blue);
+    --info-soft:        rgba(134, 165, 217, 0.14);
+
+    --success:          var(--tea-green);
+    --success-strong:   #7fcf86;
+    --success-soft:     rgba(196, 235, 200, 0.12);
+    --success-fg:       #14301a;
+
+    --hero:             var(--neon-ice);
+    --hero-soft:        rgba(38, 240, 241, 0.14);
+    --hero-fg:          #062627;
+
+    --warning:          #f5b860;
+    --warning-soft:     rgba(245, 184, 96, 0.14);
+    --warning-fg:       #2b1d05;
+
+    --danger:           #ef6a6a;
+    --danger-strong:    #e85252;
+    --danger-soft:      rgba(239, 106, 106, 0.14);
+    --danger-fg:        #2b0808;
+
+    /* Code-syntax (terminal palette) */
+    --syn-keyword:  #c08aff;
+    --syn-string:   #c4ebc8;
+    --syn-fn:       #86a5d9;
+    --syn-num:      #f5b860;
+    --syn-comment:  #6b8076;
+    --syn-add-bg:   rgba(196, 235, 200, 0.08);
+    --syn-add-fg:   #c4ebc8;
+    --syn-del-bg:   rgba(239, 106, 106, 0.08);
+    --syn-del-fg:   #ef9a9a;
+
+    /* Spacing — 4 / 8 grid */
+    --s-0: 0px;
+    --s-1: 4px;
+    --s-2: 8px;
+    --s-3: 12px;
+    --s-4: 16px;
+    --s-5: 20px;
+    --s-6: 24px;
+    --s-8: 32px;
+    --s-10: 40px;
+    --s-12: 48px;
+    --s-16: 64px;
+    --s-20: 80px;
+
+    /* Radius */
+    --r-0: 0px;
+    --r-1: 4px;
+    --r-2: 6px;
+    --r-3: 8px;
+    --r-4: 10px;
+    --r-5: 12px;
+    --r-6: 16px;
+    --r-pill: 999px;
+
+    /* Type scale */
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --t-display: 700 44px/1.1 var(--font-sans);
+    --t-h1:      600 32px/1.2 var(--font-sans);
+    --t-h2:      600 22px/1.3 var(--font-sans);
+    --t-h3:      600 16px/1.4 var(--font-sans);
+    --t-eyebrow: 600 11px/1 var(--font-mono);
+    --t-body-l:  400 15px/1.55 var(--font-sans);
+    --t-body:    400 14px/1.55 var(--font-sans);
+    --t-body-s:  400 13px/1.5 var(--font-sans);
+    --t-caption: 500 12px/1.4 var(--font-sans);
+    --t-mono-l:  400 14px/1.6 var(--font-mono);
+    --t-mono:    400 13px/1.6 var(--font-mono);
+    --t-mono-s:  400 12px/1.5 var(--font-mono);
+
+    /* Motion */
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --dur-1: 120ms;
+    --dur-2: 180ms;
+    --dur-3: 260ms;
+  }
+
+  /* ============================================================
+     Base
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font: var(--t-body);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--primary-soft-strong); color: var(--text-primary); }
+  a { color: var(--info); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  hr { border: 0; border-top: 1px solid var(--divider); margin: var(--s-12) 0; }
+
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+  }
+  .toc {
+    position: sticky; top: 0;
+    align-self: start;
+    height: 100vh;
+    border-right: 1px solid var(--border);
+    padding: var(--s-8) var(--s-6);
+    background: linear-gradient(180deg, var(--ink-950), var(--surface-sunken));
+    overflow: auto;
+  }
+  .toc__brand {
+    display: flex; align-items: center; gap: var(--s-3);
+    margin-bottom: var(--s-8);
+  }
+  .toc__brand .mark {
+    width: 28px; height: 28px; border-radius: var(--r-3);
+    background: var(--primary);
+    display: grid; place-items: center;
+    color: white; font: 700 13px/1 var(--font-mono);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+  }
+  .toc__brand .name { font: 600 14px/1 var(--font-sans); letter-spacing: -0.01em; }
+  .toc__brand .ver  { font: var(--t-mono-s); color: var(--text-tertiary); }
+
+  .toc__group { margin-bottom: var(--s-6); }
+  .toc__group h4 {
+    margin: 0 0 var(--s-2) 0;
+    font: var(--t-eyebrow);
+    color: var(--text-tertiary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .toc a {
+    display: block;
+    color: var(--text-secondary);
+    padding: 6px 8px;
+    border-radius: var(--r-2);
+    font: var(--t-body-s);
+  }
+  .toc a:hover {
+    background: var(--surface-2);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  main { padding: var(--s-12) var(--s-12); max-width: 1200px; }
+  @media (max-width: 1100px) {
+    .layout { grid-template-columns: 1fr; }
+    .toc { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+    main { padding: var(--s-8); }
+  }
+
+  .hero {
+    margin-bottom: var(--s-12);
+    padding-bottom: var(--s-10);
+    border-bottom: 1px solid var(--divider);
+  }
+  .hero .eyebrow {
+    font: var(--t-eyebrow);
+    color: var(--text-tertiary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--s-3);
+  }
+  .hero h1 {
+    font: var(--t-display);
+    margin: 0 0 var(--s-3) 0;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--text-secondary); font-weight: 500; }
+  .hero p {
+    max-width: 60ch;
+    color: var(--text-secondary);
+    font: var(--t-body-l);
+    margin: 0;
+  }
+
+  section.section { margin-bottom: var(--s-16); scroll-margin-top: var(--s-6); }
+  section.section > header {
+    margin-bottom: var(--s-6);
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--divider);
+    display: flex; align-items: baseline; gap: var(--s-4);
+  }
+  section.section > header h2 {
+    font: var(--t-h1); margin: 0; letter-spacing: -0.015em;
+  }
+  section.section > header .num {
+    font: var(--t-mono); color: var(--text-tertiary);
+  }
+  section.section > header p {
+    color: var(--text-secondary); margin: 0;
+    font: var(--t-body);
+  }
+
+  .subsection { margin-top: var(--s-10); }
+  .subsection h3 {
+    font: var(--t-h2);
+    margin: 0 0 var(--s-2);
+    letter-spacing: -0.01em;
+  }
+  .subsection > p.lead {
+    color: var(--text-secondary);
+    margin: 0 0 var(--s-5);
+  }
+
+  /* Generic surface card used for demo blocks */
+  .demo {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-5);
+    padding: var(--s-8);
+  }
+  .demo--tight { padding: var(--s-5); }
+
+  .grid { display: grid; gap: var(--s-4); }
+  .row  { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+
+  .label {
+    font: var(--t-eyebrow);
+    color: var(--text-tertiary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--s-2);
+  }
+  .meta { color: var(--text-tertiary); font: var(--t-mono-s); }
+
+  /* ============================================================
+     COLOR
+     ============================================================ */
+  .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-3); }
+  @media (max-width: 900px) { .palette { grid-template-columns: repeat(2, 1fr); } }
+  .swatch {
+    border-radius: var(--r-4);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface-1);
+  }
+  .swatch__chip {
+    height: 110px;
+    border-bottom: 1px solid var(--border);
+  }
+  .swatch__body {
+    padding: var(--s-3) var(--s-4) var(--s-4);
+  }
+  .swatch__name { font: 600 13px/1.2 var(--font-sans); margin-bottom: 2px; }
+  .swatch__role { font: var(--t-mono-s); color: var(--text-tertiary); margin-bottom: var(--s-2); }
+  .swatch__hex  { font: var(--t-mono-s); color: var(--text-secondary); }
+
+  .ramp {
+    display: grid; grid-template-columns: repeat(11, 1fr);
+    border-radius: var(--r-3); overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .ramp__step {
+    aspect-ratio: 1;
+    display: flex; align-items: flex-end;
+    padding: 6px;
+    font: var(--t-mono-s);
+    color: rgba(255,255,255,0.7);
+  }
+  .ramp__step.dark { color: rgba(0,0,0,0.7); }
+
+  .semtable {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-4);
+    overflow: hidden;
+    font: var(--t-body-s);
+  }
+  .semtable th, .semtable td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--divider);
+    text-align: left;
+    vertical-align: middle;
+  }
+  .semtable th {
+    font: var(--t-eyebrow);
+    color: var(--text-tertiary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--surface-2);
+  }
+  .semtable tr:last-child td { border-bottom: 0; }
+  .semtable td .dot {
+    width: 14px; height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: -2px;
+    margin-right: 8px;
+    border: 1px solid var(--border);
+  }
+  .semtable td code { font: var(--t-mono-s); color: var(--text-secondary); }
+
+  /* ============================================================
+     TYPE
+     ============================================================ */
+  .type-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 220px;
+    gap: var(--s-6);
+    align-items: baseline;
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .type-row:last-child { border-bottom: 0; }
+  .type-row .meta { font: var(--t-mono-s); color: var(--text-tertiary); white-space: nowrap; }
+  .type-row .role { font: var(--t-eyebrow); color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .t-display { font: var(--t-display); letter-spacing: -0.02em; }
+  .t-h1      { font: var(--t-h1); letter-spacing: -0.015em; }
+  .t-h2      { font: var(--t-h2); letter-spacing: -0.01em; }
+  .t-h3      { font: var(--t-h3); }
+  .t-body-l  { font: var(--t-body-l); }
+  .t-body    { font: var(--t-body); }
+  .t-body-s  { font: var(--t-body-s); }
+  .t-caption { font: var(--t-caption); color: var(--text-secondary); }
+  .t-mono    { font: var(--t-mono); }
+
+  /* ============================================================
+     SPACING / RADIUS
+     ============================================================ */
+  .space-grid { display: grid; gap: var(--s-3); }
+  .space-row {
+    display: grid;
+    grid-template-columns: 80px 80px 1fr;
+    align-items: center;
+    gap: var(--s-4);
+  }
+  .space-row .bar {
+    height: 14px;
+    background: var(--primary);
+    border-radius: 3px;
+    opacity: 0.85;
+  }
+  .radius-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--s-3); }
+  .radius-cell {
+    aspect-ratio: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: grid;
+    align-content: end;
+    padding: 10px;
+    font: var(--t-mono-s);
+    color: var(--text-secondary);
+  }
+  @media (max-width: 800px) { .radius-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .elev-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+  .elev-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-4);
+    padding: var(--s-5);
+    height: 110px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .elev-card.lvl-2 { background: var(--surface-2); }
+  .elev-card.lvl-3 { background: var(--surface-3); }
+  .elev-card.sunken { background: var(--surface-sunken); border-color: rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(0,0,0,0.4); }
+  .elev-card .name { font: 600 13px/1 var(--font-sans); }
+  @media (max-width: 800px) { .elev-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn {
+    --btn-bg: transparent;
+    --btn-fg: var(--text-primary);
+    --btn-bd: var(--border-strong);
+    appearance: none;
+    border: 1px solid var(--btn-bd);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font: 500 13px/1 var(--font-sans);
+    padding: 0 14px;
+    height: 32px;
+    border-radius: var(--r-3);
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    transition: background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+    user-select: none;
+    white-space: nowrap;
+  }
+  .btn:hover { background: rgba(255,255,255,0.04); }
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--primary);
+  }
+  .btn[disabled], .btn.is-disabled {
+    color: var(--text-disabled);
+    border-color: var(--border);
+    cursor: not-allowed;
+    background: transparent;
+  }
+
+  .btn--primary {
+    --btn-bg: var(--primary);
+    --btn-fg: var(--primary-fg);
+    --btn-bd: transparent;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  .btn--primary:hover { --btn-bg: var(--primary-hover); }
+  .btn--primary:active { --btn-bg: var(--primary-press); }
+
+  .btn--secondary {
+    --btn-bg: var(--surface-2);
+    --btn-bd: var(--border-strong);
+  }
+  .btn--secondary:hover { --btn-bg: var(--surface-3); }
+
+  .btn--ghost { --btn-bd: transparent; }
+  .btn--ghost:hover { background: var(--surface-2); }
+
+  .btn--danger {
+    --btn-bg: transparent;
+    --btn-fg: var(--danger);
+    --btn-bd: rgba(239, 106, 106, 0.32);
+  }
+  .btn--danger:hover { background: var(--danger-soft); --btn-bd: var(--danger); }
+
+  .btn--danger-solid {
+    --btn-bg: var(--danger-strong);
+    --btn-fg: white;
+    --btn-bd: transparent;
+  }
+
+  .btn--hero {
+    --btn-bg: var(--hero);
+    --btn-fg: var(--hero-fg);
+    --btn-bd: transparent;
+    box-shadow: 0 0 0 1px rgba(38,240,241,0.4), 0 8px 24px -8px rgba(38,240,241,0.55);
+  }
+  .btn--hero:hover { filter: brightness(1.08); }
+
+  .btn--sm { height: 26px; padding: 0 10px; font-size: 12px; border-radius: var(--r-2); }
+  .btn--lg { height: 40px; padding: 0 18px; font-size: 14px; border-radius: var(--r-4); }
+  .btn--icon { width: 32px; padding: 0; justify-content: center; }
+  .btn--icon.btn--sm { width: 26px; }
+  .btn--icon.btn--lg { width: 40px; }
+
+  .btn .icon { width: 14px; height: 14px; }
+  .btn--lg .icon { width: 16px; height: 16px; }
+
+  /* Keyboard shortcut chip */
+  .kbd {
+    font: 500 11px/1 var(--font-mono);
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* ============================================================
+     FORM INPUTS
+     ============================================================ */
+  .field { display: grid; gap: 6px; max-width: 320px; }
+  .field label {
+    font: 500 12px/1.2 var(--font-sans);
+    color: var(--text-secondary);
+  }
+  .field .help { font: var(--t-caption); color: var(--text-tertiary); }
+  .field .err  { font: var(--t-caption); color: var(--danger); }
+
+  .input, .select, .textarea {
+    width: 100%;
+    appearance: none;
+    background: var(--surface-2);
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-3);
+    padding: 0 12px;
+    height: 34px;
+    font: var(--t-body-s);
+    transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+  }
+  .input::placeholder, .textarea::placeholder { color: var(--text-tertiary); }
+  .input:hover, .select:hover, .textarea:hover { border-color: var(--ink-600); }
+  .input:focus, .select:focus, .textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+    background: var(--surface-1);
+  }
+  .textarea {
+    height: auto;
+    padding: 10px 12px;
+    min-height: 96px;
+    resize: vertical;
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+  .input.is-error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,106,106,0.16); }
+  .input[disabled] { background: var(--surface-1); color: var(--text-disabled); cursor: not-allowed; }
+
+  .select {
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+      linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+    background-position:
+      calc(100% - 16px) 14px,
+      calc(100% - 11px) 14px;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+  }
+
+  .input-group {
+    display: flex; align-items: stretch;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-3);
+    overflow: hidden;
+    max-width: 360px;
+  }
+  .input-group:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .input-group .input {
+    border: 0; background: transparent; box-shadow: none;
+  }
+  .input-group .input:focus { box-shadow: none; background: transparent; }
+  .input-group .addon {
+    padding: 0 12px;
+    display: flex; align-items: center;
+    color: var(--text-tertiary);
+    font: var(--t-mono-s);
+    background: rgba(255,255,255,0.02);
+    border-right: 1px solid var(--border);
+  }
+  .input-group .addon.right { border-right: 0; border-left: 1px solid var(--border); }
+
+  .checkbox, .radio {
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    font: var(--t-body-s);
+    color: var(--text-secondary);
+  }
+  .checkbox input, .radio input {
+    appearance: none;
+    width: 16px; height: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    display: grid; place-items: center;
+    cursor: pointer;
+    margin: 0;
+    transition: background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease);
+  }
+  .radio input { border-radius: 50%; }
+  .checkbox input:checked, .radio input:checked {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .checkbox input:checked::after {
+    content: "";
+    width: 9px; height: 5px;
+    border: 2px solid white;
+    border-top: 0; border-right: 0;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .radio input:checked::after {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: white;
+  }
+
+  .toggle {
+    appearance: none;
+    width: 32px; height: 18px;
+    background: var(--surface-3);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-pill);
+    position: relative;
+    cursor: pointer;
+    transition: background var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+    margin: 0;
+  }
+  .toggle::after {
+    content: "";
+    position: absolute;
+    top: 1px; left: 1px;
+    width: 14px; height: 14px;
+    background: var(--text-secondary);
+    border-radius: 50%;
+    transition: transform var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
+  }
+  .toggle:checked { background: var(--primary); border-color: var(--primary); }
+  .toggle:checked::after { transform: translateX(14px); background: white; }
+
+  /* ============================================================
+     BADGES
+     ============================================================ */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 2px 9px;
+    height: 22px;
+    border-radius: var(--r-pill);
+    font: 500 11px/1 var(--font-sans);
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    background: var(--surface-2);
+    border-color: var(--border);
+    white-space: nowrap;
+  }
+  .badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: currentColor;
+    flex: none;
+  }
+  .badge--draft   { color: var(--text-secondary); }
+  .badge--running { color: var(--info); background: var(--info-soft); border-color: rgba(134,165,217,0.28); }
+  .badge--running .dot { animation: pulse 1.4s var(--ease) infinite; }
+  .badge--passed  { color: var(--success); background: var(--success-soft); border-color: rgba(196,235,200,0.24); }
+  .badge--failed  { color: var(--danger); background: var(--danger-soft); border-color: rgba(239,106,106,0.32); }
+  .badge--review  { color: var(--warning); background: var(--warning-soft); border-color: rgba(245,184,96,0.28); }
+  .badge--merged  { color: var(--success); background: var(--success-soft); border-color: rgba(196,235,200,0.24); }
+  .badge--queued  { color: var(--text-tertiary); }
+  .badge--hero    { color: var(--hero-fg); background: var(--hero); border-color: transparent; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* ============================================================
+     CARDS
+     ============================================================ */
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-5);
+    padding: var(--s-5);
+    display: grid; gap: var(--s-3);
+  }
+  .card__head { display: flex; align-items: center; justify-content: space-between; }
+  .card__title { font: var(--t-h3); margin: 0; }
+  .card__sub  { font: var(--t-body-s); color: var(--text-secondary); }
+  .card--accent { border-color: rgba(95,75,182,0.4); box-shadow: 0 0 0 1px rgba(95,75,182,0.18) inset; }
+  .card--sunken { background: var(--surface-sunken); border-color: rgba(0,0,0,0.5); }
+
+  /* ============================================================
+     CODE / DIFF
+     ============================================================ */
+  code.inline {
+    font: var(--t-mono-s);
+    background: var(--surface-2);
+    color: var(--ink-100);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .codeblock {
+    background: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--r-4);
+    overflow: hidden;
+    font: var(--t-mono);
+  }
+  .codeblock__head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font: var(--t-mono-s);
+  }
+  .codeblock__head .lang { color: var(--text-tertiary); }
+  .codeblock__body {
+    padding: 14px 16px;
+    overflow-x: auto;
+    color: var(--ink-100);
+    font: var(--t-mono);
+  }
+  .codeblock pre { margin: 0; font: inherit; }
+  .tok-k { color: var(--syn-keyword); }
+  .tok-s { color: var(--syn-string); }
+  .tok-f { color: var(--syn-fn); }
+  .tok-n { color: var(--syn-num); }
+  .tok-c { color: var(--syn-comment); font-style: italic; }
+  .tok-p { color: var(--text-secondary); }
+
+  .diff {
+    background: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--r-4);
+    overflow: hidden;
+    font: var(--t-mono);
+  }
+  .diff__head {
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font: var(--t-mono-s);
+    display: flex; gap: 8px; align-items: center;
+  }
+  .diff__row {
+    display: grid;
+    grid-template-columns: 44px 44px 1fr;
+    column-gap: 12px;
+    padding: 0 12px;
+    color: var(--ink-100);
+  }
+  .diff__row .ln { color: var(--text-tertiary); text-align: right; user-select: none; padding: 1px 0; }
+  .diff__row .code { white-space: pre; padding: 1px 0; }
+  .diff__row.add { background: var(--syn-add-bg); }
+  .diff__row.add .code { color: var(--syn-add-fg); }
+  .diff__row.add .code::before { content: "+ "; color: var(--syn-add-fg); margin-left: -10px; }
+  .diff__row.del { background: var(--syn-del-bg); }
+  .diff__row.del .code { color: var(--syn-del-fg); }
+  .diff__row.del .code::before { content: "− "; color: var(--syn-del-fg); margin-left: -10px; }
+
+  /* ============================================================
+     TOAST / NOTIFICATION
+     ============================================================ */
+  .toast {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: var(--s-3);
+    align-items: start;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-4);
+    padding: 12px 14px;
+    box-shadow: 0 14px 32px -16px rgba(0,0,0,0.5);
+    max-width: 440px;
+  }
+  .toast__icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: grid; place-items: center;
+  }
+  .toast__title { font: 600 13px/1.3 var(--font-sans); margin-bottom: 2px; }
+  .toast__body  { font: var(--t-body-s); color: var(--text-secondary); }
+  .toast--success .toast__icon { background: var(--success-soft); color: var(--success); }
+  .toast--error   .toast__icon { background: var(--danger-soft);  color: var(--danger); }
+  .toast--info    .toast__icon { background: var(--info-soft);    color: var(--info); }
+  .toast--warn    .toast__icon { background: var(--warning-soft); color: var(--warning); }
+
+  /* ============================================================
+     MODAL
+     ============================================================ */
+  .modal-stage {
+    position: relative;
+    background: rgba(15,20,17,0.6);
+    border-radius: var(--r-5);
+    border: 1px solid var(--border);
+    padding: var(--s-12) var(--s-6);
+    overflow: hidden;
+  }
+  .modal-stage::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 200px at 50% -10%, rgba(95,75,182,0.18), transparent 60%),
+      repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.015) 12px 13px);
+    pointer-events: none;
+  }
+  .modal {
+    position: relative;
+    width: 100%; max-width: 480px;
+    margin: 0 auto;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-5);
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6);
+    overflow: hidden;
+  }
+  .modal__head {
+    padding: 18px 20px 4px;
+  }
+  .modal__title { font: var(--t-h2); margin: 0 0 4px; }
+  .modal__sub   { font: var(--t-body-s); color: var(--text-secondary); margin: 0; }
+  .modal__body  { padding: 12px 20px 20px; }
+  .modal__foot  {
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.18);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: flex-end; gap: 8px;
+  }
+
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  .navdemo {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border: 1px solid var(--border);
+    border-radius: var(--r-5);
+    overflow: hidden;
+    min-height: 280px;
+    background: var(--surface-1);
+  }
+  .sidebar {
+    background: var(--surface-sunken);
+    border-right: 1px solid var(--border);
+    padding: var(--s-4);
+    display: flex; flex-direction: column; gap: var(--s-2);
+  }
+  .sidebar__brand {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 8px; margin-bottom: var(--s-3);
+  }
+  .sidebar__brand .mark {
+    width: 22px; height: 22px; border-radius: 6px; background: var(--primary);
+    display: grid; place-items: center; color: white; font: 700 11px/1 var(--font-mono);
+  }
+  .sidebar__brand .name { font: 600 13px/1 var(--font-sans); }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 10px;
+    border-radius: var(--r-2);
+    color: var(--text-secondary);
+    font: var(--t-body-s);
+    cursor: pointer;
+  }
+  .nav-item:hover { background: var(--surface-2); color: var(--text-primary); }
+  .nav-item.is-active {
+    background: var(--primary-soft);
+    color: var(--text-primary);
+    box-shadow: inset 2px 0 0 var(--primary);
+  }
+  .nav-item .count {
+    margin-left: auto;
+    font: var(--t-mono-s);
+    color: var(--text-tertiary);
+  }
+  .nav-group { font: var(--t-eyebrow); color: var(--text-tertiary); padding: 10px 10px 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .pane { padding: var(--s-5); }
+  .crumb { display: flex; align-items: center; gap: 8px; font: var(--t-body-s); color: var(--text-secondary); margin-bottom: var(--s-4); }
+  .crumb .sep { color: var(--text-tertiary); }
+  .crumb .here { color: var(--text-primary); }
+
+  .tabs {
+    display: flex; gap: 2px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--s-4);
+  }
+  .tab {
+    padding: 8px 12px;
+    font: 500 13px/1 var(--font-sans);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text-primary); }
+  .tab.is-active { color: var(--text-primary); border-bottom-color: var(--primary); }
+  .tab .num { font: var(--t-mono-s); color: var(--text-tertiary); margin-left: 6px; }
+
+  /* ============================================================
+     LIST ROWS — task / MR / PR
+     ============================================================ */
+  .rows {
+    border: 1px solid var(--border);
+    border-radius: var(--r-5);
+    overflow: hidden;
+    background: var(--surface-1);
+  }
+  .rows__row {
+    display: grid;
+    grid-template-columns: 22px 1fr auto auto auto;
+    align-items: center;
+    gap: var(--s-4);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .rows__row:last-child { border-bottom: 0; }
+  .rows__row:hover { background: var(--surface-2); }
+  .rows__row .ico {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: grid; place-items: center;
+    color: var(--text-secondary);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .rows__row .title { font: 500 14px/1.3 var(--font-sans); }
+  .rows__row .meta-row { font: var(--t-mono-s); color: var(--text-tertiary); margin-top: 2px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .rows__row .meta-row .author { color: var(--text-secondary); }
+  .avatar {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    display: grid; place-items: center;
+    font: 600 10px/1 var(--font-sans);
+    color: var(--text-secondary);
+  }
+
+  /* ============================================================
+     TABLE
+     ============================================================ */
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-4);
+    overflow: hidden;
+    font: var(--t-body-s);
+  }
+  .table th, .table td { padding: 10px 14px; text-align: left; }
+  .table thead th {
+    font: var(--t-eyebrow);
+    color: var(--text-tertiary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .table tbody tr { border-bottom: 1px solid var(--divider); }
+  .table tbody tr:hover { background: var(--surface-2); }
+  .table tbody tr:last-child td { border-bottom: 0; }
+  .table td.right { text-align: right; font: var(--t-mono-s); color: var(--text-secondary); }
+
+  /* ============================================================
+     PROGRESS
+     ============================================================ */
+  .progress {
+    display: grid; gap: 6px;
+  }
+  .progress__bar {
+    position: relative;
+    height: 6px;
+    background: var(--surface-3);
+    border-radius: var(--r-pill);
+    overflow: hidden;
+  }
+  .progress__fill {
+    position: absolute; inset: 0 auto 0 0;
+    background: var(--primary);
+    border-radius: inherit;
+  }
+  .progress__fill.success { background: var(--success-strong); }
+  .progress__fill.danger  { background: var(--danger); }
+  .progress__head { display: flex; justify-content: space-between; font: var(--t-mono-s); color: var(--text-secondary); }
+  .progress__head .pct { color: var(--text-primary); }
+
+  .pipeline {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-3);
+  }
+  .stage {
+    flex: 1;
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px;
+    border-radius: var(--r-2);
+    font: var(--t-body-s);
+    color: var(--text-secondary);
+    min-width: 0;
+    border: 1px solid transparent;
+  }
+  .stage .ico {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    flex: none;
+    background: var(--surface-3);
+    color: var(--text-tertiary);
+    font: 600 10px/1 var(--font-mono);
+  }
+  .stage.done { color: var(--text-primary); }
+  .stage.done .ico { background: var(--success-soft); color: var(--success); border: 1px solid rgba(196,235,200,0.24); }
+  .stage.run  { color: var(--text-primary); background: var(--info-soft); border-color: rgba(134,165,217,0.28); }
+  .stage.run .ico { background: rgba(134,165,217,0.24); color: var(--info); }
+  .stage.run .ico::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--info); animation: pulse 1.4s var(--ease) infinite; }
+  .stage.run .ico { font-size: 0; }
+  .stage.fail { color: var(--text-primary); background: var(--danger-soft); border-color: rgba(239,106,106,0.32); }
+  .stage.fail .ico { background: rgba(239,106,106,0.18); color: var(--danger); }
+  .stage .arrow { color: var(--text-tertiary); flex: none; }
+
+  /* ============================================================
+     TOOLTIP
+     ============================================================ */
+  .tip-host { position: relative; display: inline-block; }
+  .tip {
+    position: absolute;
+    left: 50%; bottom: calc(100% + 8px);
+    transform: translateX(-50%);
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    padding: 6px 9px;
+    border-radius: var(--r-2);
+    font: var(--t-body-s);
+    white-space: nowrap;
+    box-shadow: 0 8px 20px -8px rgba(0,0,0,0.5);
+    display: flex; gap: 8px; align-items: center;
+  }
+  .tip::after {
+    content: "";
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--surface-3);
+    margin-top: -1px;
+  }
+
+  /* Generic icon styles so SVGs inherit currentColor */
+  svg { display: block; }
+  .ic { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ic-lg { width: 16px; height: 16px; }
+  .ic-sm { width: 12px; height: 12px; }
+
+  /* Accent strip used as visual mark */
+  .accent-strip {
+    display: flex; gap: 0; border-radius: var(--r-1); overflow: hidden;
+    width: 100%; max-width: 220px; height: 8px;
+  }
+  .accent-strip span { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- Inline icon defs (unicode-light, simple geometric) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 16 16"><path d="M5 4l4 4-4 4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3.5 3.5L13 5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></symbol>
+    <symbol id="i-play" viewBox="0 0 16 16"><path d="M5 3.5v9l7-4.5z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4"/><path d="M10 10l3 3"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 16 16"><circle cx="4" cy="4" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="12" cy="6" r="1.5"/><path d="M4 5.5v5M4 8c0-2 4-2 4-4"/></symbol>
+    <symbol id="i-mr" viewBox="0 0 16 16"><circle cx="4" cy="4" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><path d="M4 5.5v5M5.5 12H10.5"/></symbol>
+    <symbol id="i-bug" viewBox="0 0 16 16"><rect x="5" y="6" width="6" height="7" rx="3"/><path d="M5 9H2M11 9h3M5 12H2M11 12h3M6 6V4M10 6V4"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 16 16"><rect x="2" y="3" width="5" height="3" rx="1"/><rect x="9" y="10" width="5" height="3" rx="1"/><path d="M4.5 6v3.5h7"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 16 16"><path d="M4 11V8a4 4 0 018 0v3l1 2H3l1-2zM6.5 13.5a2 2 0 003 0"/></symbol>
+    <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5v.5"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 16 16"><path d="M8 2.5l6 11H2l6-11zM8 7v3M8 11.5v.5"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 16 16"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M5 7h.5M8 7h.5M11 7h.5M5 10h6"/></symbol>
+    <symbol id="i-slack" viewBox="0 0 16 16"><rect x="3" y="3" width="3" height="6" rx="1.5"/><rect x="7" y="3" width="6" height="3" rx="1.5"/><rect x="10" y="7" width="3" height="6" rx="1.5"/><rect x="3" y="10" width="6" height="3" rx="1.5"/></symbol>
+  </defs>
+</svg>
+
+<div class="layout">
+  <aside class="toc">
+    <div class="toc__brand">
+      <div class="mark">F</div>
+      <div>
+        <div class="name">Forge</div>
+        <div class="ver">design system · v0.1</div>
+      </div>
+    </div>
+
+    <div class="toc__group">
+      <h4>Foundations</h4>
+      <a href="#color">Color</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing &amp; layout</a>
+      <a href="#radius">Radius</a>
+      <a href="#elevation">Elevation</a>
+    </div>
+
+    <div class="toc__group">
+      <h4>Components</h4>
+      <a href="#buttons">Buttons</a>
+      <a href="#inputs">Form inputs</a>
+      <a href="#cards">Cards &amp; surfaces</a>
+      <a href="#badges">Status badges</a>
+      <a href="#code">Code &amp; diff</a>
+      <a href="#toasts">Toasts</a>
+      <a href="#modal">Modal</a>
+      <a href="#nav">Navigation</a>
+      <a href="#rows">Task / MR rows</a>
+      <a href="#tables">Tables</a>
+      <a href="#progress">Progress &amp; pipelines</a>
+      <a href="#tooltips">Tooltips &amp; shortcuts</a>
+    </div>
+
+    <div class="toc__group">
+      <h4>Principles</h4>
+      <a href="#principles">Principles</a>
+    </div>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <div class="eyebrow">FORGE · v0.1 · DARK-FIRST</div>
+      <h1>Tools that feel like the terminal,<br/><span class="accent">interfaces that don't.</span></h1>
+      <p>Forge is the design system for our programming workflow manager — a place to ship MRs, run tests, post to Slack and track work without leaving the keyboard. Calm, dense-when-it-matters, and built around five core colors.</p>
+
+      <div class="row" style="margin-top: var(--s-6); gap: var(--s-2);">
+        <div class="accent-strip">
+          <span style="background: var(--jet-black)"></span>
+          <span style="background: var(--violet-twilight)"></span>
+          <span style="background: var(--wisteria-blue)"></span>
+          <span style="background: var(--neon-ice)"></span>
+          <span style="background: var(--tea-green)"></span>
+        </div>
+        <span class="meta" style="margin-left: var(--s-3);">5 core · 11-step neutral · 4 semantic</span>
+      </div>
+    </header>
+
+    <!-- ================ COLOR ================ -->
+    <section id="color" class="section">
+      <header>
+        <span class="num">01</span>
+        <div>
+          <h2>Color</h2>
+          <p>Five brand colors do most of the work. Neon-ice is reserved for hero moments; tea-green is exclusively success.</p>
+        </div>
+      </header>
+
+      <div class="subsection">
+        <h3>Brand</h3>
+        <p class="lead">The provided palette, with the role each color plays in product UI.</p>
+        <div class="palette">
+          <div class="swatch">
+            <div class="swatch__chip" style="background: var(--jet-black)"></div>
+            <div class="swatch__body">
+              <div class="swatch__name">Jet Black</div>
+              <div class="swatch__role">canvas / surface-1</div>
+              <div class="swatch__hex">#202a25</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background: var(--violet-twilight)"></div>
+            <div class="swatch__body">
+              <div class="swatch__name">Violet Twilight</div>
+              <div class="swatch__role">primary brand · CTAs</div>
+              <div class="swatch__hex">#5f4bb6</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background: var(--wisteria-blue)"></div>
+            <div class="swatch__body">
+              <div class="swatch__name">Wisteria Blue</div>
+              <div class="swatch__role">info · running states</div>
+              <div class="swatch__hex">#86a5d9</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background: var(--neon-ice)"></div>
+            <div class="swatch__body">
+              <div class="swatch__name">Neon Ice</div>
+              <div class="swatch__role">hero accent · sparingly</div>
+              <div class="swatch__hex">#26f0f1</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background: var(--tea-green)"></div>
+            <div class="swatch__body">
+              <div class="swatch__name">Tea Green</div>
+              <div class="swatch__role">success · merged · passing</div>
+              <div class="swatch__hex">#c4ebc8</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Neutrals — Ink scale</h3>
+        <p class="lead">An 11-step ramp derived from <code class="inline">hsl(150, 14%, x%)</code> — the same hue as jet-black. Used for text, surfaces, borders.</p>
+        <div class="ramp">
+          <div class="ramp__step" style="background:#0e1411">50</div>
+          <div class="ramp__step" style="background:#161d19">100</div>
+          <div class="ramp__step" style="background:#202a25">200</div>
+          <div class="ramp__step" style="background:#283330">300</div>
+          <div class="ramp__step" style="background:#313d38">400</div>
+          <div class="ramp__step" style="background:#4f6258">500</div>
+          <div class="ramp__step dark" style="background:#8aa092">600</div>
+          <div class="ramp__step dark" style="background:#a8baad">700</div>
+          <div class="ramp__step dark" style="background:#c8d4cb">800</div>
+          <div class="ramp__step dark" style="background:#e3eae5">900</div>
+          <div class="ramp__step dark" style="background:#f1f4f2">950</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Semantic tokens</h3>
+        <p class="lead">All UI references these — never raw hex.</p>
+        <table class="semtable">
+          <thead>
+            <tr><th style="width:30%">Token</th><th style="width:30%">Value</th><th>Use</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="dot" style="background:var(--bg)"></span><code>--bg</code></td><td><code>ink-100 (#161d19)</code></td><td>App background — slightly darker than surface-1 to let cards float.</td></tr>
+            <tr><td><span class="dot" style="background:var(--surface-1)"></span><code>--surface-1</code></td><td><code>jet-black (#202a25)</code></td><td>Default card / row surface.</td></tr>
+            <tr><td><span class="dot" style="background:var(--surface-2)"></span><code>--surface-2</code></td><td><code>ink-300 (#283330)</code></td><td>Raised surface (modals, popovers, table headers).</td></tr>
+            <tr><td><span class="dot" style="background:var(--surface-3)"></span><code>--surface-3</code></td><td><code>ink-400 (#313d38)</code></td><td>Hover / active state on surfaces.</td></tr>
+            <tr><td><span class="dot" style="background:var(--primary)"></span><code>--primary</code></td><td><code>violet-twilight</code></td><td>Primary buttons, selection, focus ring.</td></tr>
+            <tr><td><span class="dot" style="background:var(--info)"></span><code>--info</code></td><td><code>wisteria-blue</code></td><td>Running/in-progress states, links, info toasts.</td></tr>
+            <tr><td><span class="dot" style="background:var(--success)"></span><code>--success</code></td><td><code>tea-green</code></td><td>Passing tests, merged, additions in diff.</td></tr>
+            <tr><td><span class="dot" style="background:var(--warning)"></span><code>--warning</code></td><td><code>#f5b860</code></td><td>Needs attention, review requested. Custom — outside the brand 5.</td></tr>
+            <tr><td><span class="dot" style="background:var(--danger)"></span><code>--danger</code></td><td><code>#ef6a6a</code></td><td>Failed tests, destructive, deletions. Custom — outside the brand 5.</td></tr>
+            <tr><td><span class="dot" style="background:var(--hero)"></span><code>--hero</code></td><td><code>neon-ice</code></td><td>Hero moments only — onboarding completion, AI suggestions, "live" indicators. Never a CTA.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================ TYPE ================ -->
+    <section id="typography" class="section">
+      <header>
+        <span class="num">02</span>
+        <div>
+          <h2>Typography</h2>
+          <p>Inter for everything human. JetBrains Mono for everything computed — paths, hashes, code, identifiers.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="type-row">
+          <div class="role">Display</div>
+          <div class="t-display">Ship the diff.</div>
+          <div class="meta">Inter 700 · 44 / 1.1</div>
+        </div>
+        <div class="type-row">
+          <div class="role">H1</div>
+          <div class="t-h1">Open MRs awaiting review</div>
+          <div class="meta">Inter 600 · 32 / 1.2</div>
+        </div>
+        <div class="type-row">
+          <div class="role">H2</div>
+          <div class="t-h2">Pipeline · feature/auth-rewrite</div>
+          <div class="meta">Inter 600 · 22 / 1.3</div>
+        </div>
+        <div class="type-row">
+          <div class="role">H3</div>
+          <div class="t-h3">Failed — 3 tests</div>
+          <div class="meta">Inter 600 · 16 / 1.4</div>
+        </div>
+        <div class="type-row">
+          <div class="role">Body L</div>
+          <div class="t-body-l">Forge connects to your repo, your CI, and the channels your team already lives in.</div>
+          <div class="meta">Inter 400 · 15 / 1.55</div>
+        </div>
+        <div class="type-row">
+          <div class="role">Body</div>
+          <div class="t-body">Default reading size for most product copy and list rows.</div>
+          <div class="meta">Inter 400 · 14 / 1.55</div>
+        </div>
+        <div class="type-row">
+          <div class="role">Caption</div>
+          <div class="t-caption">Updated 4 minutes ago by maya</div>
+          <div class="meta">Inter 500 · 12 / 1.4</div>
+        </div>
+        <div class="type-row">
+          <div class="role">Mono</div>
+          <div class="t-mono">git checkout -b feat/forge-tokens</div>
+          <div class="meta">JetBrains 400 · 13 / 1.6</div>
+        </div>
+        <div class="type-row">
+          <div class="role">Eyebrow</div>
+          <div style="font: var(--t-eyebrow); color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase;">PIPELINE · STAGE 3 OF 5</div>
+          <div class="meta">JetBrains 600 · 11 / 1</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ SPACING ================ -->
+    <section id="spacing" class="section">
+      <header>
+        <span class="num">03</span>
+        <div>
+          <h2>Spacing &amp; layout</h2>
+          <p>4-pixel grid. Comfortable Linear-style density — air between rows, breathing room around code.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="space-grid">
+          <div class="space-row"><code class="meta">--s-1</code><span class="meta">4px</span><div class="bar" style="width: 4px"></div></div>
+          <div class="space-row"><code class="meta">--s-2</code><span class="meta">8px</span><div class="bar" style="width: 8px"></div></div>
+          <div class="space-row"><code class="meta">--s-3</code><span class="meta">12px</span><div class="bar" style="width: 12px"></div></div>
+          <div class="space-row"><code class="meta">--s-4</code><span class="meta">16px</span><div class="bar" style="width: 16px"></div></div>
+          <div class="space-row"><code class="meta">--s-5</code><span class="meta">20px</span><div class="bar" style="width: 20px"></div></div>
+          <div class="space-row"><code class="meta">--s-6</code><span class="meta">24px</span><div class="bar" style="width: 24px"></div></div>
+          <div class="space-row"><code class="meta">--s-8</code><span class="meta">32px</span><div class="bar" style="width: 32px"></div></div>
+          <div class="space-row"><code class="meta">--s-10</code><span class="meta">40px</span><div class="bar" style="width: 40px"></div></div>
+          <div class="space-row"><code class="meta">--s-12</code><span class="meta">48px</span><div class="bar" style="width: 48px"></div></div>
+          <div class="space-row"><code class="meta">--s-16</code><span class="meta">64px</span><div class="bar" style="width: 64px"></div></div>
+          <div class="space-row"><code class="meta">--s-20</code><span class="meta">80px</span><div class="bar" style="width: 80px"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ RADIUS ================ -->
+    <section id="radius" class="section">
+      <header>
+        <span class="num">04</span>
+        <div>
+          <h2>Radius</h2>
+          <p>Soft 8–12px on cards and modals. Sharper 4–6px for chips and inputs. Pills for status.</p>
+        </div>
+      </header>
+      <div class="demo">
+        <div class="radius-grid">
+          <div class="radius-cell" style="border-radius: var(--r-1)">4 · r-1</div>
+          <div class="radius-cell" style="border-radius: var(--r-2)">6 · r-2</div>
+          <div class="radius-cell" style="border-radius: var(--r-3)">8 · r-3</div>
+          <div class="radius-cell" style="border-radius: var(--r-4)">10 · r-4</div>
+          <div class="radius-cell" style="border-radius: var(--r-5)">12 · r-5</div>
+          <div class="radius-cell" style="border-radius: var(--r-6)">16 · r-6</div>
+          <div class="radius-cell" style="border-radius: var(--r-pill)">pill</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ ELEVATION ================ -->
+    <section id="elevation" class="section">
+      <header>
+        <span class="num">05</span>
+        <div>
+          <h2>Elevation</h2>
+          <p>Tints, not shadows. Shadows are reserved for popovers, toasts and modals, where they earn their pixels.</p>
+        </div>
+      </header>
+      <div class="demo">
+        <div class="elev-grid">
+          <div class="elev-card sunken">
+            <div class="meta">Sunken</div>
+            <div class="name">surface-sunken</div>
+          </div>
+          <div class="elev-card">
+            <div class="meta">Level 1</div>
+            <div class="name">surface-1</div>
+          </div>
+          <div class="elev-card lvl-2">
+            <div class="meta">Level 2</div>
+            <div class="name">surface-2</div>
+          </div>
+          <div class="elev-card lvl-3">
+            <div class="meta">Level 3 · hover</div>
+            <div class="name">surface-3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ BUTTONS ================ -->
+    <section id="buttons" class="section">
+      <header>
+        <span class="num">06</span>
+        <div>
+          <h2>Buttons</h2>
+          <p>Five intents: primary, secondary, ghost, danger, hero. Three sizes. Hero is for one moment — never two on one screen.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="label">Intent</div>
+        <div class="row">
+          <button class="btn btn--primary">Open MR <svg class="ic"><use href="#i-arrow"/></svg></button>
+          <button class="btn btn--secondary">Run tests</button>
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--danger">Close PR</button>
+          <button class="btn btn--danger-solid">Delete branch</button>
+          <button class="btn btn--hero"><svg class="ic"><use href="#i-play"/></svg> Try AI rebase</button>
+          <button class="btn btn--primary" disabled>Disabled</button>
+        </div>
+
+        <hr/>
+
+        <div class="label">Size</div>
+        <div class="row">
+          <button class="btn btn--primary btn--sm">Small</button>
+          <button class="btn btn--primary">Medium</button>
+          <button class="btn btn--primary btn--lg">Large</button>
+          <button class="btn btn--secondary btn--icon" aria-label="Add"><svg class="ic"><use href="#i-plus"/></svg></button>
+          <button class="btn btn--ghost btn--icon" aria-label="Search"><svg class="ic"><use href="#i-search"/></svg></button>
+        </div>
+
+        <hr/>
+
+        <div class="label">In context</div>
+        <div class="row">
+          <button class="btn btn--primary"><svg class="ic"><use href="#i-mr"/></svg> Create MR <span class="kbd">⌘ ⏎</span></button>
+          <button class="btn btn--secondary"><svg class="ic"><use href="#i-slack"/></svg> Post to #eng</button>
+          <button class="btn btn--ghost"><svg class="ic"><use href="#i-play"/></svg> Re-run failed</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ INPUTS ================ -->
+    <section id="inputs" class="section">
+      <header>
+        <span class="num">07</span>
+        <div>
+          <h2>Form inputs</h2>
+          <p>Inputs sit on surface-2 so they read as interactive against surface-1 cards. Focus ring is the violet primary.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field">
+            <label for="i1">Branch name</label>
+            <input id="i1" class="input" value="feat/forge-tokens"/>
+            <div class="help">Lowercase, hyphenated. Will be created from <code class="inline">main</code>.</div>
+          </div>
+
+          <div class="field">
+            <label for="i2">Reviewer</label>
+            <select id="i2" class="select">
+              <option>maya@team</option>
+              <option>jordan@team</option>
+              <option>priya@team</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="i3">PR URL</label>
+            <div class="input-group">
+              <span class="addon">github.com/</span>
+              <input id="i3" class="input" placeholder="org/repo/pull/123"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="i4">Slack channel</label>
+            <div class="input-group">
+              <span class="addon">#</span>
+              <input id="i4" class="input" value="eng-platform"/>
+              <span class="addon right">⌘K</span>
+            </div>
+          </div>
+
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="i5">MR description</label>
+            <textarea id="i5" class="textarea" placeholder="Summary of the change, why it matters, what to look for in review&hellip;"></textarea>
+            <div class="help">Markdown supported. AI draft available with <span class="kbd">⌘ G</span>.</div>
+          </div>
+
+          <div class="field">
+            <label for="i6">Coverage threshold</label>
+            <input id="i6" class="input is-error" value="ninety"/>
+            <div class="err">Must be a number between 0 and 100.</div>
+          </div>
+
+          <div class="field">
+            <label for="i7">Rate limit</label>
+            <input id="i7" class="input" disabled value="100 req / min"/>
+            <div class="help">Managed by your workspace plan.</div>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="label">Toggles &amp; choice</div>
+        <div class="row" style="gap: var(--s-6); align-items: flex-start;">
+          <label class="checkbox"><input type="checkbox" checked/> Run tests on push</label>
+          <label class="checkbox"><input type="checkbox"/> Notify Slack on failure</label>
+          <label class="checkbox"><input type="checkbox" checked/> Auto-merge on green</label>
+          <span style="display:inline-flex; align-items:center; gap:8px; font: var(--t-body-s); color: var(--text-secondary);">
+            Dark mode <input class="toggle" type="checkbox" checked/>
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:8px; font: var(--t-body-s); color: var(--text-secondary);">
+            AI suggestions <input class="toggle" type="checkbox"/>
+          </span>
+        </div>
+
+        <hr/>
+
+        <div class="label">Radio group · Test runner</div>
+        <div class="row">
+          <label class="radio"><input type="radio" name="r" checked/> Vitest</label>
+          <label class="radio"><input type="radio" name="r"/> Jest</label>
+          <label class="radio"><input type="radio" name="r"/> Playwright</label>
+          <label class="radio"><input type="radio" name="r"/> Custom command</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ CARDS ================ -->
+    <section id="cards" class="section">
+      <header>
+        <span class="num">08</span>
+        <div>
+          <h2>Cards &amp; surfaces</h2>
+          <p>Three flavors: default, accent (violet outline) for selected/featured, and sunken for code-adjacent reading.</p>
+        </div>
+      </header>
+
+      <div class="demo" style="background: var(--bg); padding: var(--s-6);">
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="card">
+            <div class="card__head">
+              <h3 class="card__title">Open MRs</h3>
+              <span class="badge badge--running"><span class="dot"></span> Live</span>
+            </div>
+            <div style="font: var(--t-display); letter-spacing: -0.02em;">12</div>
+            <div class="card__sub">3 awaiting your review</div>
+          </div>
+
+          <div class="card card--accent">
+            <div class="card__head">
+              <h3 class="card__title">Selected workflow</h3>
+              <span class="badge"><span class="dot" style="background: var(--primary)"></span> Active</span>
+            </div>
+            <div class="card__sub">Run tests → post results to <code class="inline">#eng-platform</code> → if green, auto-merge.</div>
+            <div class="row">
+              <button class="btn btn--primary btn--sm">Edit</button>
+              <button class="btn btn--ghost btn--sm">Disable</button>
+            </div>
+          </div>
+
+          <div class="card card--sunken">
+            <div class="card__head">
+              <h3 class="card__title">Last commit</h3>
+              <span class="meta">2m ago</span>
+            </div>
+            <div style="font: var(--t-mono); color: var(--text-primary);">a3f1c0e</div>
+            <div class="card__sub">refactor(auth): drop legacy session middleware</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ BADGES ================ -->
+    <section id="badges" class="section">
+      <header>
+        <span class="num">09</span>
+        <div>
+          <h2>Status badges</h2>
+          <p>The vocabulary of states across MRs, runs, tasks. Soft-tinted backgrounds to read at a glance without dominating the row.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="row">
+          <span class="badge badge--draft"><span class="dot"></span> Draft</span>
+          <span class="badge badge--queued"><span class="dot"></span> Queued</span>
+          <span class="badge badge--running"><span class="dot"></span> Running</span>
+          <span class="badge badge--review"><span class="dot"></span> Review requested</span>
+          <span class="badge badge--passed"><span class="dot"></span> Passed</span>
+          <span class="badge badge--merged"><span class="dot"></span> Merged</span>
+          <span class="badge badge--failed"><span class="dot"></span> Failed</span>
+          <span class="badge badge--hero"><span class="dot" style="background: var(--hero-fg); opacity: 0.6;"></span> Live</span>
+        </div>
+
+        <hr/>
+
+        <div class="label">In context</div>
+        <div class="row" style="gap: var(--s-4);">
+          <div style="display:flex; align-items:center; gap:10px; font: var(--t-body-s);">
+            <span class="badge badge--running"><span class="dot"></span> Running</span>
+            <span style="color: var(--text-secondary)">CI · stage 3 of 5</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; font: var(--t-body-s);">
+            <span class="badge badge--passed"><span class="dot"></span> Passed</span>
+            <span style="color: var(--text-secondary)">142 tests in 38s</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; font: var(--t-body-s);">
+            <span class="badge badge--failed"><span class="dot"></span> Failed</span>
+            <span style="color: var(--text-secondary)">auth.spec.ts · 3 assertions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ CODE ================ -->
+    <section id="code" class="section">
+      <header>
+        <span class="num">10</span>
+        <div>
+          <h2>Code &amp; diff</h2>
+          <p>Sunken background, mono everything. Tea-green for additions, danger-red for deletions.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="label">Inline</div>
+        <p class="t-body">Use <code class="inline">forge run</code> from the workspace root, or pass <code class="inline">--watch</code> to keep the test runner attached. Set <code class="inline">FORGE_TOKEN</code> in your environment first.</p>
+
+        <hr/>
+
+        <div class="label">Block</div>
+        <div class="codeblock">
+          <div class="codeblock__head">
+            <span><span class="lang">ts</span> &nbsp;src/workflows/post-mr.ts</span>
+            <span>32 lines · 1.2 KB</span>
+          </div>
+          <div class="codeblock__body"><pre><span class="tok-c">// Post MR summary to Slack channel</span>
+<span class="tok-k">export async function</span> <span class="tok-f">postMr</span>(<span class="tok-p">mr</span>: <span class="tok-f">PullRequest</span>) {
+  <span class="tok-k">const</span> channel = <span class="tok-s">"#eng-platform"</span>;
+  <span class="tok-k">await</span> slack.<span class="tok-f">post</span>({
+    channel,
+    text: <span class="tok-s">`New MR by ${mr.author}: ${mr.title}`</span>,
+    attachments: [{ color: <span class="tok-s">"#5f4bb6"</span>, ts: <span class="tok-n">Date.now()</span> }],
+  });
+}</pre></div>
+        </div>
+
+        <hr/>
+
+        <div class="label">Diff</div>
+        <div class="diff">
+          <div class="diff__head">
+            <svg class="ic"><use href="#i-mr"/></svg>
+            src/workflows/post-mr.ts <span style="color: var(--text-tertiary)">· +4 −2</span>
+          </div>
+          <div class="diff__row"><span class="ln">12</span><span class="ln">12</span><span class="code">export async function postMr(mr: PullRequest) {</span></div>
+          <div class="diff__row del"><span class="ln">13</span><span class="ln"></span><span class="code">  const channel = "#general";</span></div>
+          <div class="diff__row del"><span class="ln">14</span><span class="ln"></span><span class="code">  await slack.post({ channel, text: mr.title });</span></div>
+          <div class="diff__row add"><span class="ln"></span><span class="ln">13</span><span class="code">  const channel = mr.config.slackChannel ?? "#eng-platform";</span></div>
+          <div class="diff__row add"><span class="ln"></span><span class="ln">14</span><span class="code">  const text = `New MR by ${mr.author}: ${mr.title}`;</span></div>
+          <div class="diff__row add"><span class="ln"></span><span class="ln">15</span><span class="code">  const attachments = [{ color: brand.primary }];</span></div>
+          <div class="diff__row add"><span class="ln"></span><span class="ln">16</span><span class="code">  await slack.post({ channel, text, attachments });</span></div>
+          <div class="diff__row"><span class="ln">15</span><span class="ln">17</span><span class="code">}</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ TOASTS ================ -->
+    <section id="toasts" class="section">
+      <header>
+        <span class="num">11</span>
+        <div>
+          <h2>Toasts</h2>
+          <p>Stacked top-right. Auto-dismiss after 6s; persist if action is required. Live region for screen readers.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="grid" style="gap: var(--s-3); max-width: 460px;">
+
+          <div class="toast toast--success">
+            <div class="toast__icon"><svg class="ic"><use href="#i-check"/></svg></div>
+            <div>
+              <div class="toast__title">MR #482 merged into <code class="inline">main</code></div>
+              <div class="toast__body">Posted to #eng-platform · auto-deploy queued.</div>
+            </div>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="dismiss"><svg class="ic ic-sm"><use href="#i-x"/></svg></button>
+          </div>
+
+          <div class="toast toast--info">
+            <div class="toast__icon"><svg class="ic"><use href="#i-info"/></svg></div>
+            <div>
+              <div class="toast__title">Tests running on <code class="inline">feat/auth</code></div>
+              <div class="toast__body">142 of 380 complete · ~22s remaining.</div>
+            </div>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="dismiss"><svg class="ic ic-sm"><use href="#i-x"/></svg></button>
+          </div>
+
+          <div class="toast toast--warn">
+            <div class="toast__icon"><svg class="ic"><use href="#i-warn"/></svg></div>
+            <div>
+              <div class="toast__title">2 reviews requested on your MRs</div>
+              <div class="toast__body">Oldest waiting 2 days &middot; jordan&middot;maya assigned.</div>
+            </div>
+            <button class="btn btn--ghost btn--sm">View</button>
+          </div>
+
+          <div class="toast toast--error">
+            <div class="toast__icon"><svg class="ic"><use href="#i-x"/></svg></div>
+            <div>
+              <div class="toast__title">Pipeline failed at stage <code class="inline">e2e</code></div>
+              <div class="toast__body">3 assertions in <code class="inline">auth.spec.ts</code> · click for logs.</div>
+            </div>
+            <button class="btn btn--secondary btn--sm">Re-run</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ MODAL ================ -->
+    <section id="modal" class="section">
+      <header>
+        <span class="num">12</span>
+        <div>
+          <h2>Modal</h2>
+          <p>Used sparingly — for confirmation, focused composition, or destructive actions. Backed by a translucent stage with a soft violet wash.</p>
+        </div>
+      </header>
+
+      <div class="modal-stage">
+        <div class="modal">
+          <div class="modal__head">
+            <div class="modal__title">Open merge request?</div>
+            <p class="modal__sub">This will open MR <code class="inline">feat/forge-tokens → main</code>, request review from <strong>maya</strong>, and post to <code class="inline">#eng-platform</code>.</p>
+          </div>
+          <div class="modal__body">
+            <div class="field" style="max-width: none;">
+              <label>Title</label>
+              <input class="input" value="feat(design-system): introduce Forge tokens"/>
+            </div>
+            <div style="height: var(--s-3)"></div>
+            <div class="field" style="max-width: none;">
+              <label>Reviewers</label>
+              <div class="row" style="gap: 6px;">
+                <span class="badge"><span class="avatar" style="width:14px;height:14px;font-size:8px">M</span> maya</span>
+                <span class="badge"><span class="avatar" style="width:14px;height:14px;font-size:8px">J</span> jordan</span>
+                <button class="btn btn--ghost btn--sm">+ Add</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal__foot">
+            <button class="btn btn--ghost">Cancel <span class="kbd" style="margin-left:4px">Esc</span></button>
+            <button class="btn btn--primary">Open MR <span class="kbd" style="margin-left:4px">⌘ ⏎</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ NAV ================ -->
+    <section id="nav" class="section">
+      <header>
+        <span class="num">13</span>
+        <div>
+          <h2>Navigation</h2>
+          <p>Sidebar, breadcrumbs, and tabs. The active sidebar item gets a violet rail and a soft tint — the only place selection bleeds into background.</p>
+        </div>
+      </header>
+
+      <div class="demo demo--tight" style="padding: 0;">
+        <div class="navdemo">
+          <div class="sidebar">
+            <div class="sidebar__brand">
+              <div class="mark">F</div>
+              <div class="name">Forge</div>
+            </div>
+
+            <div class="nav-item"><svg class="ic"><use href="#i-flow"/></svg> Overview</div>
+            <div class="nav-item is-active"><svg class="ic"><use href="#i-mr"/></svg> Merge requests <span class="count">12</span></div>
+            <div class="nav-item"><svg class="ic"><use href="#i-bug"/></svg> Tasks <span class="count">5</span></div>
+            <div class="nav-item"><svg class="ic"><use href="#i-play"/></svg> Pipelines</div>
+            <div class="nav-item"><svg class="ic"><use href="#i-slack"/></svg> Channels</div>
+
+            <div class="nav-group">Workflows</div>
+            <div class="nav-item"><svg class="ic"><use href="#i-flow"/></svg> Auto-merge on green</div>
+            <div class="nav-item"><svg class="ic"><use href="#i-flow"/></svg> Slack on failure</div>
+            <div class="nav-item"><svg class="ic"><use href="#i-flow"/></svg> AI MR draft</div>
+          </div>
+
+          <div class="pane">
+            <div class="crumb">
+              <span>Workspace</span>
+              <span class="sep">/</span>
+              <span>backend</span>
+              <span class="sep">/</span>
+              <span class="here">Merge requests</span>
+            </div>
+
+            <div class="tabs">
+              <div class="tab is-active">Open <span class="num">12</span></div>
+              <div class="tab">Drafts <span class="num">3</span></div>
+              <div class="tab">Awaiting me <span class="num">3</span></div>
+              <div class="tab">Merged this week</div>
+            </div>
+
+            <div style="display:grid; gap: var(--s-3);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input class="input" placeholder="Search MRs, branches, authors&hellip;" style="max-width: 320px;"/>
+                <button class="btn btn--ghost btn--sm">Filter</button>
+                <button class="btn btn--ghost btn--sm">Sort: Newest</button>
+                <span class="meta" style="margin-left: auto;">Showing 12 of 12</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ ROWS ================ -->
+    <section id="rows" class="section">
+      <header>
+        <span class="num">14</span>
+        <div>
+          <h2>Task &amp; MR rows</h2>
+          <p>The bread and butter of Forge — every list of work uses this row pattern. Title, breadcrumb-style meta, status, assignees, time.</p>
+        </div>
+      </header>
+
+      <div class="rows">
+        <div class="rows__row">
+          <div class="ico" style="color: var(--info)"><svg class="ic"><use href="#i-mr"/></svg></div>
+          <div>
+            <div class="title">feat(auth): rotate refresh tokens on every issue</div>
+            <div class="meta-row">
+              <span><svg class="ic ic-sm" style="display:inline; vertical-align:-2px"><use href="#i-branch"/></svg> feat/rotate-tokens → main</span>
+              <span class="author">maya</span>
+              <span>+248 −31</span>
+              <span>opened 3h ago</span>
+            </div>
+          </div>
+          <span class="badge badge--running"><span class="dot"></span> Running</span>
+          <div class="row" style="gap: -4px;">
+            <span class="avatar" title="maya">M</span>
+            <span class="avatar" style="margin-left:-6px" title="jordan">J</span>
+          </div>
+          <span class="meta">3h</span>
+        </div>
+
+        <div class="rows__row">
+          <div class="ico" style="color: var(--warning)"><svg class="ic"><use href="#i-mr"/></svg></div>
+          <div>
+            <div class="title">refactor(billing): drop legacy invoice path</div>
+            <div class="meta-row">
+              <span><svg class="ic ic-sm" style="display:inline; vertical-align:-2px"><use href="#i-branch"/></svg> chore/billing-legacy → main</span>
+              <span class="author">jordan</span>
+              <span>+12 −418</span>
+              <span>opened 1d ago</span>
+            </div>
+          </div>
+          <span class="badge badge--review"><span class="dot"></span> Review requested</span>
+          <div class="row">
+            <span class="avatar" title="you">YOU</span>
+          </div>
+          <span class="meta">1d</span>
+        </div>
+
+        <div class="rows__row">
+          <div class="ico" style="color: var(--success)"><svg class="ic"><use href="#i-check"/></svg></div>
+          <div>
+            <div class="title">fix(api): handle empty cursor in pagination util</div>
+            <div class="meta-row">
+              <span><svg class="ic ic-sm" style="display:inline; vertical-align:-2px"><use href="#i-branch"/></svg> fix/empty-cursor → main</span>
+              <span class="author">priya</span>
+              <span>+8 −2</span>
+              <span>merged 4h ago</span>
+            </div>
+          </div>
+          <span class="badge badge--merged"><span class="dot"></span> Merged</span>
+          <div class="row">
+            <span class="avatar" title="priya">P</span>
+          </div>
+          <span class="meta">4h</span>
+        </div>
+
+        <div class="rows__row">
+          <div class="ico" style="color: var(--danger)"><svg class="ic"><use href="#i-x"/></svg></div>
+          <div>
+            <div class="title">feat(search): introduce hybrid ranking</div>
+            <div class="meta-row">
+              <span><svg class="ic ic-sm" style="display:inline; vertical-align:-2px"><use href="#i-branch"/></svg> feat/hybrid-ranking → main</span>
+              <span class="author">sam</span>
+              <span>+612 −104</span>
+              <span>opened 2d ago</span>
+            </div>
+          </div>
+          <span class="badge badge--failed"><span class="dot"></span> Failed</span>
+          <div class="row">
+            <span class="avatar" title="sam">S</span>
+          </div>
+          <span class="meta">2d</span>
+        </div>
+
+        <div class="rows__row">
+          <div class="ico"><svg class="ic"><use href="#i-bug"/></svg></div>
+          <div>
+            <div class="title">Investigate flaky <code class="inline">workflow-runner.spec.ts</code></div>
+            <div class="meta-row">
+              <span>FORGE-204</span>
+              <span class="author">maya</span>
+              <span>linked to MR #482</span>
+            </div>
+          </div>
+          <span class="badge badge--draft"><span class="dot"></span> In progress</span>
+          <div class="row">
+            <span class="avatar" title="maya">M</span>
+          </div>
+          <span class="meta">today</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ TABLES ================ -->
+    <section id="tables" class="section">
+      <header>
+        <span class="num">15</span>
+        <div>
+          <h2>Tables</h2>
+          <p>For dense tabular data — test results, coverage, runs over time. Right-align numbers in mono.</p>
+        </div>
+      </header>
+
+      <div class="demo demo--tight" style="padding: 0;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Suite</th>
+              <th>Status</th>
+              <th>Tests</th>
+              <th class="right">Duration</th>
+              <th class="right">Coverage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>auth</strong> · <code class="inline">apps/api/src/auth</code></td>
+              <td><span class="badge badge--passed"><span class="dot"></span> Passed</span></td>
+              <td>48 / 48</td>
+              <td class="right">2.4s</td>
+              <td class="right">94.1%</td>
+            </tr>
+            <tr>
+              <td><strong>billing</strong> · <code class="inline">apps/api/src/billing</code></td>
+              <td><span class="badge badge--passed"><span class="dot"></span> Passed</span></td>
+              <td>112 / 112</td>
+              <td class="right">7.1s</td>
+              <td class="right">88.2%</td>
+            </tr>
+            <tr>
+              <td><strong>workflows</strong> · <code class="inline">apps/api/src/workflows</code></td>
+              <td><span class="badge badge--running"><span class="dot"></span> Running</span></td>
+              <td>62 / 80</td>
+              <td class="right">— </td>
+              <td class="right">—</td>
+            </tr>
+            <tr>
+              <td><strong>e2e</strong> · <code class="inline">tests/e2e/auth.spec.ts</code></td>
+              <td><span class="badge badge--failed"><span class="dot"></span> Failed</span></td>
+              <td>9 / 12</td>
+              <td class="right">14.2s</td>
+              <td class="right">—</td>
+            </tr>
+            <tr>
+              <td><strong>ui</strong> · <code class="inline">apps/web/src</code></td>
+              <td><span class="badge badge--queued"><span class="dot"></span> Queued</span></td>
+              <td>—</td>
+              <td class="right">—</td>
+              <td class="right">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================ PROGRESS ================ -->
+    <section id="progress" class="section">
+      <header>
+        <span class="num">16</span>
+        <div>
+          <h2>Progress &amp; pipelines</h2>
+          <p>Linear bars for determinate progress, pipeline strips for CI stage state.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="progress">
+            <div class="progress__head"><span>Test run · workflows</span><span class="pct">62 / 80</span></div>
+            <div class="progress__bar"><div class="progress__fill" style="right: 22%;"></div></div>
+            <div class="meta">~ 14s remaining</div>
+          </div>
+
+          <div class="progress">
+            <div class="progress__head"><span>Coverage</span><span class="pct">88.2%</span></div>
+            <div class="progress__bar"><div class="progress__fill success" style="right: 11.8%;"></div></div>
+            <div class="meta">Threshold 85% · OK</div>
+          </div>
+
+          <div class="progress">
+            <div class="progress__head"><span>Build · web</span><span class="pct">100%</span></div>
+            <div class="progress__bar"><div class="progress__fill success" style="right: 0;"></div></div>
+            <div class="meta">2.1 MB · 38s</div>
+          </div>
+
+          <div class="progress">
+            <div class="progress__head"><span>e2e · auth</span><span style="color: var(--danger)">3 failures</span></div>
+            <div class="progress__bar"><div class="progress__fill danger" style="right: 25%;"></div></div>
+            <div class="meta">9 of 12 passed</div>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="label">CI pipeline</div>
+        <div class="pipeline">
+          <div class="stage done"><span class="ico"><svg class="ic ic-sm"><use href="#i-check"/></svg></span> Install</div>
+          <span class="arrow">›</span>
+          <div class="stage done"><span class="ico"><svg class="ic ic-sm"><use href="#i-check"/></svg></span> Lint</div>
+          <span class="arrow">›</span>
+          <div class="stage done"><span class="ico"><svg class="ic ic-sm"><use href="#i-check"/></svg></span> Build</div>
+          <span class="arrow">›</span>
+          <div class="stage run"><span class="ico"></span> Test · 62/80</div>
+          <span class="arrow">›</span>
+          <div class="stage"><span class="ico">5</span> Deploy</div>
+        </div>
+
+        <div style="height: var(--s-3)"></div>
+
+        <div class="pipeline">
+          <div class="stage done"><span class="ico"><svg class="ic ic-sm"><use href="#i-check"/></svg></span> Install</div>
+          <span class="arrow">›</span>
+          <div class="stage done"><span class="ico"><svg class="ic ic-sm"><use href="#i-check"/></svg></span> Lint</div>
+          <span class="arrow">›</span>
+          <div class="stage done"><span class="ico"><svg class="ic ic-sm"><use href="#i-check"/></svg></span> Build</div>
+          <span class="arrow">›</span>
+          <div class="stage fail"><span class="ico"><svg class="ic ic-sm"><use href="#i-x"/></svg></span> Test · 3 failed</div>
+          <span class="arrow">›</span>
+          <div class="stage"><span class="ico">5</span> Deploy</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ TOOLTIPS ================ -->
+    <section id="tooltips" class="section">
+      <header>
+        <span class="num">17</span>
+        <div>
+          <h2>Tooltips &amp; keyboard shortcuts</h2>
+          <p>Tooltips for explanation, never for primary content. Pair every common action with a shortcut chip.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="row" style="gap: var(--s-8); align-items: flex-end; padding-top: var(--s-12);">
+          <div class="tip-host">
+            <div class="tip">Re-run failed tests <span class="kbd">⌘ R</span></div>
+            <button class="btn btn--secondary btn--icon"><svg class="ic"><use href="#i-play"/></svg></button>
+          </div>
+
+          <div class="tip-host">
+            <div class="tip">Open MR <span class="kbd">⌘ ⏎</span></div>
+            <button class="btn btn--primary"><svg class="ic"><use href="#i-mr"/></svg> Open MR</button>
+          </div>
+
+          <div class="tip-host">
+            <div class="tip">Post to channel <span class="kbd">⌘ K</span></div>
+            <button class="btn btn--ghost btn--icon"><svg class="ic"><use href="#i-slack"/></svg></button>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="label">Shortcut palette</div>
+        <div class="row" style="gap: var(--s-4); font: var(--t-body-s); color: var(--text-secondary);">
+          <div><span class="kbd">⌘ K</span> &nbsp; Command bar</div>
+          <div><span class="kbd">G</span> <span class="kbd">M</span> &nbsp; Go to Merge requests</div>
+          <div><span class="kbd">G</span> <span class="kbd">T</span> &nbsp; Go to Tasks</div>
+          <div><span class="kbd">⌘ ⏎</span> &nbsp; Submit / open MR</div>
+          <div><span class="kbd">R</span> &nbsp; Re-run last pipeline</div>
+          <div><span class="kbd">⌘ /</span> &nbsp; Toggle keyboard help</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ PRINCIPLES ================ -->
+    <section id="principles" class="section">
+      <header>
+        <span class="num">18</span>
+        <div>
+          <h2>Principles</h2>
+          <p>Five rules to keep the system honest as it grows.</p>
+        </div>
+      </header>
+
+      <div class="demo">
+        <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: var(--s-4);">
+          <div class="card">
+            <div class="card__head">
+              <h3 class="card__title">Calm by default</h3>
+              <span class="meta">01</span>
+            </div>
+            <p class="card__sub">Dark canvas, low chroma, soft tints. The interface stays out of the way so the work — code, runs, conversations — is what reads first.</p>
+          </div>
+          <div class="card">
+            <div class="card__head">
+              <h3 class="card__title">Spend neon-ice carefully</h3>
+              <span class="meta">02</span>
+            </div>
+            <p class="card__sub">Hero accents lose meaning when overused. Reserve <code class="inline">--hero</code> for one moment per screen — the AI suggestion, the live tail, the celebration.</p>
+          </div>
+          <div class="card">
+            <div class="card__head">
+              <h3 class="card__title">Tea-green = success only</h3>
+              <span class="meta">03</span>
+            </div>
+            <p class="card__sub">Never a decorative tint, never a brand surface. If it's green, it passed, merged, or was added. Anything else uses violet or wisteria.</p>
+          </div>
+          <div class="card">
+            <div class="card__head">
+              <h3 class="card__title">Mono for the computed</h3>
+              <span class="meta">04</span>
+            </div>
+            <p class="card__sub">Branches, hashes, paths, identifiers, channel names — anything a machine produced — set in JetBrains Mono. Inter is only for prose written by a human.</p>
+          </div>
+          <div class="card" style="grid-column: 1 / -1;">
+            <div class="card__head">
+              <h3 class="card__title">Tints over shadows</h3>
+              <span class="meta">05</span>
+            </div>
+            <p class="card__sub">Elevation in dark UI is communicated by surface lightness, not glow. Reserve real shadows for popovers, toasts and modals — the things that genuinely float over content.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top: var(--s-16); padding-top: var(--s-6); border-top: 1px solid var(--divider); display: flex; justify-content: space-between; align-items: center; color: var(--text-tertiary); font: var(--t-mono-s);">
+      <div>FORGE · v0.1 · designed for the programming workflow manager</div>
+      <div>built with Inter + JetBrains Mono on a 4-px grid</div>
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>
